@@ -37,7 +37,7 @@ function handleSlide(e) {
 
   const index = target.dataset.index;
 
-  attr(visualImage, "src", `./assets/part01/visual${index - 1}.jpg`);
+  attr(visualImage, "src", `./assets/part01/${data[index - 1].src}`);
   attr(visualImage, "alt", data[index - 1].alt);
 
   list.forEach((li) => removeClass(li, "is-active"));

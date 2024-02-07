@@ -21,11 +21,49 @@ const data = [
   },
 ];
 
+const swiper = new Swiper(".swiper", {
+  autoplay: {
+    delay: 4000,
+  },
+  loop: true,
+  speed: 2000,
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  parallax: true,
+  pagination: {
+    el: ".pagination",
+    clickable: true,
+    bulletClass: "bullet",
+    bulletActiveClass: "is-active",
+    renderBullet: function (index, className) {
+      return /* html */ `
+        <span class="${className}">
+          <img src="./assets/part01/${data[index].src}" alt="${data[index].alt}.jpg" />
+        </span>
+      `;
+    },
+    // type:'fraction'
+  },
+});
 
+const split = new SplitText("h3", { type: "chars, Lines, words" });
 
-
-
-
-
-
-
+swiper
+  .on("slideChangeTransitionStart", function () {
+    console.log("넘어갔다!");
+    gsap.to(split.chars, {
+      yPercent: 0,
+      stagger: 0.08,
+    });
+    // document.querySelector("h3").classList.remove("is-active");
+  })
+  .on("slideChangeTransitionEnd", function () {
+    console.log("도착했다!");
+    gsap.to(split.chars, {
+      yPercent: 120,
+      stagger: 0.08,
+    });
+    // document.querySelector("h3").classList.add("is-active");
+  });
